@@ -5,40 +5,48 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use App\Form\UsersType;
 use App\Entity\Users;
+
 
 class UsersController extends AbstractController
 {
     #[Route('/users', name: 'users')]
-    public function index(): Response
+    public function index()
     {
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository(Users::class)->findAll();
+        $users = $this->getDoctrine()->getRepository(Users::class)->findAll();
 
         return $this->render('home/index.html.twig', [
             'users' => $users,
         ]);
     }
-
-    public function add(Request $request): Response
+    
+    #[Route('/users/add', name: 'users_add', methods: ['POST'])]
+    public function addUser(Request $request)
     {
-        $user = new User();
+    // Get the form data
+    $formData = $request->request->all();
 
-        $form = $this->createForm(UsersType::class, $user);
-        $form->handleRequest($request);
+    // Create a new User object
+    $user = new Users();
+    $user->setFirstName($formData['firstname']);
+    $user->setLastName($formData['lastname']);
+    $user->setCIN($formData['cin']);
+    $user->setAddress($formData['address']);
+    $user->setClubId($formData['clubid']);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+    // Add the user to the database
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->persist($user);
+    $entityManager->flush();
 
-            $this->addFlash('success', 'User added successfully.');
+    // Return a JSON response
+    return $this->json([
+        'status' => 'success',
+        'message' => 'User added successfully.'
+    ]);
+}
 
-            return $this->redirectToRoute('user_list');
-        }
 
-        return $this->render('home/index.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
 }

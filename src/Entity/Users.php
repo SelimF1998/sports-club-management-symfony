@@ -20,9 +20,6 @@ class Users
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $phone_number = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $CIN = null;
 
     #[ORM\Column(length: 255)]
@@ -60,18 +57,7 @@ class Users
         return $this;
     }
 
-    public function getPhoneNumber(): ?string
-    {
-        return $this->phone_number;
-    }
-
-    public function setPhoneNumber(string $phone_number): self
-    {
-        $this->phone_number = $phone_number;
-
-        return $this;
-    }
-
+   
     public function getCIN(): ?string
     {
         return $this->CIN;

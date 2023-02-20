@@ -1,53 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="">
-    {% block content %}
-
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-right mb-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Add User
+                </button>
+            </div>
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>CIN</th>
+                            <th>Address</th>
+                            <th>Clubid</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.firstname }}</td>
+                                <td>{{ user.lastname }}</td>
+                                <td>{{ user.cin }}</td>
+                                <td>{{ user.address }}</td>
+                                <td>{{ user.clubid }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     {% include 'home/add.html.twig' %}
 
-{% endblock %}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">CIN</th>
-                <th scope="col">Address</th>
-                <th scope="col">Clubid</th>
-                <th scope="col">Actions</th>
-                
-
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                {# <td>{{ user.phone_number }}</td> #}
-                <td>{{ user.cin }}</td>
-                <td>{{ user.address }}</td>
-                <td>{{ user.clubid }}</td>
-                <td>
-                    <button>delete</button>
-                    <button>edit</button>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
     
-
-
-</div> 
-
 {% endblock %}
+
+
+
+
+
