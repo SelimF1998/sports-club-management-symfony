@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Form\UsersType;
 use App\Entity\Users;
 
@@ -46,7 +47,16 @@ class UsersController extends AbstractController
         'status' => 'success',
         'message' => 'User added successfully.'
     ]);
-}
+    }
 
+    #[Route('/users/delete/{id}', name: 'delete_user', methods: ['DELETE'])]
+    public function deleteUser(Request $request): JsonResponse
+    {
+        $user = $this->getDoctrine()->getRepository(Users::class)->find($request->get('id'));
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($user);
+        $entityManager->flush();
 
+        return new JsonResponse(['message' => 'User deleted successfully.']);
+    }
 }
