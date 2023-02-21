@@ -38,7 +38,7 @@
       </div>
       <br/>
       <div class="form-group">
-        <button type="submit" class="btn btn-info">Submit</button>
+        <button type="submit" class="btn btn-info" aria-label="Close">Submit</button>
       </div> 
       </form>   
     </div> 
@@ -67,7 +67,15 @@
                     clubid: clubid
                 },
                 success: function(data){
-                    console.log(data);
+                    
+                   // hide the modal
+        $('#my-modal').modal('hide');
+
+        // reload the page
+        location.reload();
+
+                    
+
                 }
             });
         });
