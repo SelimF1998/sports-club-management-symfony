@@ -7,15 +7,15 @@
 </style>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Edit User</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form id="add-user-form" >
+        <form>
             <div class="form-group">
             <label for="firstname">First Name</label>
             <input type="text" class="form-control" id="firstname" placeholder="Enter First Name">
@@ -36,51 +36,13 @@
         <label for="firstname">Clubid</label>
         <input type="text" class="form-control" id="clubid" placeholder="Enter Clubid">
       </div>
-      <br/>
-      <div class="modal-footer">
-        <div class="form-group">
-         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-         <button type="submit" class="btn btn-info" aria-label="Close">Submit</button> </div>
+        </form>
       </div>
-      </form>   
-    </div> 
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>
 </div>
-
-<script>
-    $(document).ready(function(){
-        $('#add-user-form').on('submit', function(e){
-            e.preventDefault();
-            var firstname = $('#firstname').val();
-            var lastname = $('#lastname').val();
-            var cin = $('#cin').val();
-            var address = $('#address').val();
-            var clubid = $('#clubid').val();
-            $.ajax({
-                url: '/users/add',
-                type: 'POST',
-                data: {
-                    firstname: firstname,
-                    lastname: lastname,
-                    cin: cin,
-                    address: address,
-                    clubid: clubid
-                },
-                success: function(data){
-                    
-                   // hide the modal
-                   $('#my-modal').modal('hide');
-
-                   // reload the page
-                   location.reload();
-                }
-            });
-        });
-    });
-  
-</script>
-
-
 {% endblock %}

@@ -32,6 +32,10 @@
                                 <td>{{ user.clubid }}</td>
                                 <td>
                                      <button class="delete-user-btn" data-url="{{ path('delete_user', {'id': user.id}) }}">Delete</button>
+                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                       Edit
+                                     </button>
+                                     
                                 </td>
                             </tr>
                         {% endfor %}
@@ -41,6 +45,7 @@
         </div>
     </div>
     {% include 'home/add.html.twig' %}
+    {% include 'home/edit.html.twig' %}
 
     {% block javascripts %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -63,9 +68,6 @@
         });
     </script>
     {% endblock %}
-
-
-    
 {% endblock %}
 
 

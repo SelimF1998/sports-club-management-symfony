@@ -59,4 +59,16 @@ class UsersController extends AbstractController
 
         return new JsonResponse(['message' => 'User deleted successfully.']);
     }
+
+    //make me edit function
+    #[Route('/users/edit/{id}', name: 'edit_user', methods: ['PUT'])]
+    public function editUser(Request $request, $id)
+    {
+        $user = $this->getDoctrine()->getRepository(Users::class)->find($id);
+
+        // Render the edit template and pass the user data to it
+        return $this->render('home/edit.html.twig', [
+            'user' => $user
+        ]);  
+    }
 }
